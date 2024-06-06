@@ -21,6 +21,18 @@ Note: this history may suggest that things in the room have changed from the the
 <<history>>
 
 end of history
+
+===============
+HINTS
+===============
+
+If the player---judging from the history---has not triggered any of the special ROOM RULES for 6 turns, this means that the player is confused and needs a hint.
+Please include a hint if the user seems very confused.
+You can say it like this, including the hint where it says {hint}:
+
+"*Your anterior lateral prefrontal cortex flushes out a tiny guidance vision*: ...{hint}... *(Brought to you by the Rheem x GlaxoSmithKline Katanóizine™ HVAC diffuser.)*"
+
+end of hints
 ===============
 OTHER RULES
 ===============
@@ -41,4 +53,5 @@ Make sure that your output obeys the ROOM RULES and is in the style of the STYLE
 PLAYER INPUT:
 <<player_input>>
 
+Ok, now for the GAME OUTPUT (but don't say GAME OUTPUT, just say what needs to be said in response.)
 GAME OUTPUT:
