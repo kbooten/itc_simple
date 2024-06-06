@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ItC2 (Lite Version)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #fff;
+            color: #000;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            font-size: 0.95rem; /* Slightly smaller base font size */
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-top: 20px; /* Add space at the top */
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        p.email-instructions {
+            text-align: center;
+            font-size: 1rem;
+            margin: 10px;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            padding: 20px;
+            width: 100%; /* Ensure the ul takes the full width */
+            box-sizing: border-box;
+        }
+
+        li {
+            width: 100%; /* Ensure li takes full width */
+            display: flex;
+            justify-content: center;
+        }
+
+        .room-div {
+            cursor: pointer;
+            padding: 20px;
+            margin: 5px 0;
+            background-color: #000;
+            color: #fff;
+            box-sizing: border-box;
+            width: 90%; /* Take most of the page width */
+            max-width: 800px;
+            text-align: center;
+            border: 2px dotted #000;
+            transform: rotate(calc(var(--rotation, 0deg)));
+        }
+
+        .room-div:hover {
+            background-color: #333;
+        }
+
+        .same-kansas {
+            background-color: #3b0507;
+            color: #fff;
+        }
+
+        .diamond-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: black;
+        }
+
+        .diamond-link:hover {
+            color: #3b0507;
+        }
+    </style>
+</head>
+<body>
+    <div class="diamond-link" onclick="openLink()">⧫</div>
+    <h1>Inside the Castle 2</h1>
+    <h2>Revenge of the Castle Freak</h2>
+    <h3>(Simplistic Deathless Version)</h3>
+    <p class="email-instructions">This is a collaborative writing event. For possible publication, please to email your interactions withe the ROOMS below to <a href="mailto:press@insidethecastle.org">press@insidethecastle.org</a>.</p>
+    <ul id="room-list">
+        {% for room in rooms %}
+        <li>
+            <div class="room-div" data-room-id="{{ room.id }}">
+                {{ room.author }}: {{ room.title }}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        function openLink() {
+            window.open('https://yourlink.com', '_blank');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const visitedRoomsKey = 'visitedRooms';
+            const roomList = document.getElementById('room-list');
+            const visitedRooms = JSON.parse(localStorage.getItem(visitedRoomsKey)) || [];
+
+            function updateVisitedRooms(roomId) {
+                if (!visitedRooms.includes(roomId)) {
+                    visitedRooms.push(roomId);
+                    localStorage.setItem(visitedRoomsKey, JSON.stringify(visitedRooms));
+                    if (visitedRooms.length >= 5) {
+                        showSameKansasRoom();
+                    }
+                }
+            }
+
+            function showSameKansasRoom() {
+                const sameKansasRoom = document.createElement('li');
+                sameKansasRoom.innerHTML = `
+                    <div class="room-div same-kansas" onclick="window.open('https://samekansas.net', '_blank')">
+                        Same, Kansas
+                    </div>
+                `;
+                roomList.appendChild(sameKansasRoom);
+            }
+
+            document.querySelectorAll('.room-div').forEach(div => {
+                // Add a random tilt between -3 and 3 degrees
+                const rotation = Math.random() * 6 - 3;
+                div.style.setProperty('--rotation', `${rotation}deg`);
+
+                div.addEventListener('click', function() {
+                    const roomId = div.getAttribute('data-room-id');
+                    updateVisitedRooms(roomId);
+
+                    fetch("{{ url_for('select_room') }}", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'room_id=' + encodeURIComponent(roomId)
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        document.write(html);
+                        document.close();
+                    })
+                    .catch(error => {
+                        console.error('Room selection Fetch Error:', error);
+                    });
+                });
+            });
+
+            if (visitedRooms.length >= 5) {
+                showSameKansasRoom();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
