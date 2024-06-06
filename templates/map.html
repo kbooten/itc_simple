@@ -132,7 +132,7 @@
                 if (!visitedRooms.includes(roomId)) {
                     visitedRooms.push(roomId);
                     localStorage.setItem(visitedRoomsKey, JSON.stringify(visitedRooms));
-                    if (visitedRooms.length >= 5) {
+                    if (visitedRooms.length >= 7) {
                         showSameKansasRoom();
                     }
                 }
