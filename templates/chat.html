@@ -245,11 +245,19 @@
             document.getElementById('popup').style.display = 'none';
         }
 
+        function getCurrentTimestamp() {
+            const now = new Date();
+            return now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+
         function sendMessage(message) {
             if (!message) {
                 message = textarea.value.trim();
                 if (!message) return; // Do nothing if the message is empty
             }
+
+            const timestamp = getCurrentTimestamp();
+            const messageWithTimestamp = `[${timestamp}] ${message}`;
 
             textarea.disabled = true; // Disable textarea during send
             button.disabled = true; // Disable button during send
@@ -260,7 +268,7 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'message=' + encodeURIComponent(message) + '&room_id=' + encodeURIComponent("{{ room_info.id }}") + '&history=' + encodeURIComponent(JSON.stringify(messageHistory))
+                body: 'message=' + encodeURIComponent(messageWithTimestamp) + '&room_id=' + encodeURIComponent("{{ room_info.id }}") + '&history=' + encodeURIComponent(JSON.stringify(messageHistory))
             })
             .then(response => response.text())
             .then(text => {
@@ -278,12 +286,12 @@
                     alert(data.error);
                 } else {
                     if (message !== "show me the initial description.") {
-                        msgArea.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+                        msgArea.innerHTML += `<div><strong>You:</strong> ${messageWithTimestamp}</div>`;
                     }
                     msgArea.innerHTML += `<div><strong>Room:</strong> ${data.text}</div>`;
                     msgArea.scrollTop = msgArea.scrollHeight; // Scroll to bottom
                     //update history
-                    messageHistory.push({ user: 'Player Input', text: message });
+                    messageHistory.push({ user: 'Player Input', text: messageWithTimestamp });
                     messageHistory.push({ user: 'Game Output', text: data.text });
                     if (messageHistory.length > MAX_HISTORY * 2) {
                         messageHistory = messageHistory.slice(-MAX_HISTORY * 2);

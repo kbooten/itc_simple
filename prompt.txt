@@ -28,7 +28,7 @@ end of history
 HINTS
 ===============
 
-If the player---judging from the HISTORY---has not triggered any of the special ROOM RULES for 12 turns, this means that the player is confused and needs a hint.  Again: don't give hints immediately.  Look at the history, and if it seems that the user hasn't done anything to trigger the rules, only then do you give them a hint.
+If the player---judging from the HISTORY---has not triggered any of the special ROOM RULES for 12 turns, this means that the player is confused and needs a hint.  Again: don't give hints immediately.  Look at the history, and if it seems that the user hasn't done anything to trigger the rules in their last 12 turns (each turn being one player input followed by game output), only then do you give them a hint.
 You can give the hint like this, including the hint where it says {hint}:
 
 "*Your anterior lateral prefrontal cortex flushes out a tiny guidance vision*: ...{hint}... *(Brought to you by the Rheem x GlaxoSmithKline Katanóizine™ HVAC diffuser.)*"
@@ -38,11 +38,15 @@ end of hints
 OTHER RULES
 ===============
 
+
 # Providing Initial Description
-When the player says something like "give me the Initial Description" you should reply with the initial description from above, in the ROOM INSTRUCTIONS section.  The history should be empty at this point; in other words, the initial description is the first thing you say, and you don't say it again---because it is just to set the scene.
+When the player says something like "give me the Initial Description" you should reply with BOTH 1) the name of the room (in brackets) and then the Initial Description of the room from above, in the ROOM INSTRUCTIONS section.  The history should be empty at this point; in other words, the room title (not the room number) and Initial Description is the first thing you say, and you don't say it again---because it is just to set the scene.  The initial description should not be in quotes. 
 
 # Player Death
 When a player dies, tell them that they are dead but that it is impossible to die here, unfortunately.
+
+# Timestampes
+User input will be prepended with timestamps.  This is to let you know how much time has transpired, which may be useful for following ROOM RULES.  Otherwise you can ignore.
 
 end of other rules
 ===============
