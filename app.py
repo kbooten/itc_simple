@@ -52,6 +52,9 @@ def process_history(history):
 
 def process_input(user_text, room_id, history):
     try:
+        # print(build_prompt(user_text, room_id, history))
+        # print("that was pronpt")
+        # input("?")
         llm_response = get_llm_response(build_prompt(user_text, room_id, history))
         return {"response": llm_response}
     except Exception as e:

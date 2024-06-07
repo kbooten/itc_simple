@@ -14,24 +14,16 @@ First, some room instructions.  These instructions include things like the PUBLI
 
 end of room instructions
 ===============
-HISTORY
-===============
-
-You should also take into account the recent history of the game.  
-Note: this history may suggest that things in the room have changed from the the description of the room above. Take this HISTORY into account as you update your understanding of how the room has changed from the descriptions mentioned in the ROOM INSTRUCTIONS. 
-
-<<history>>
-
-end of history
-
-===============
 HINTS
 ===============
 
 If the player---judging from the HISTORY---has not triggered any of the special ROOM RULES for 12 turns, this means that the player is confused and needs a hint.  Again: don't give hints immediately.  Look at the history, and if it seems that the user hasn't done anything to trigger the rules in their last 12 turns (each turn being one player input followed by game output), only then do you give them a hint.
-You can give the hint like this, including the hint where it says {hint}:
+You can give the HINT MESSAGE like this, including the hint where it says {hint}:
 
 "*Your anterior lateral prefrontal cortex flushes out a tiny guidance vision*: ...{hint}... *(Brought to you by the Rheem x GlaxoSmithKline Katanóizine™ HVAC diffuser.)*"
+
+
+But then, don't ever give another hint.  I repeat, because it is important: YOU CAN ONLY GIVE ONE HINT MESSAGE.  If you have already delivered a hint message (based on the history) don't utter another one. 
 
 end of hints
 ===============
@@ -51,6 +43,16 @@ User input will be prepended with timestamps.  This is to let you know how much 
 end of other rules
 ===============
 ===============
+
+===============
+HISTORY
+===============
+
+You should also take into account the recent history of the game.  
+Note: this history may suggest that things in the room have changed from the the description of the room above. Take this HISTORY into account as you update your understanding of how the room has changed from the descriptions mentioned in the ROOM INSTRUCTIONS.  Look in the history: if you have already said the initial description, don't say it again.  And don't give a hint unless the user has done 12 inputs and hasn't activated any of the rules (and only ever give 1 hint):
+
+<<history>>
+
 
 Ok, based on all that information---the ROOM INSTRUCTIONS, the HISTORY, the OTHER RULES, provide respond to the PLAYER INPUT below with the GAME OUTPUT.  
 Make sure that your output obeys the ROOM RULES and is in the style of the STYLE INSTRUCTIONS.
